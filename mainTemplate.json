@@ -133,8 +133,8 @@
               ],
               "resources": {
                 "requests": {
-                  "cpu": 1,
-                  "memoryInGb": 2
+                  "cpu": 2,
+                  "memoryInGb": 4
                 }
               },
               "ports": [
