@@ -28,7 +28,7 @@
         "locustImage": "locustio/locust:latest",
         "location": "[parameters('location')]",
         "prefix": "[uniqueString(resourceGroup().id)]",
-        "azureCliImage": "mcr.microsoft.com/azure-cli",
+        "azureCliImage": "mcr.microsoft.com/azure-cli:latest",
         "locustfile": "[if(empty(parameters('locustfile')), 'ZnJvbSBsb2N1c3QgaW1wb3J0IEh0dHBVc2VyLCB0YXNrLCBiZXR3ZWVuCgpjbGFzcyBRdWlja3N0YXJ0VXNlcihIdHRwVXNlcik6CiAgICB3YWl0X3RpbWUgPSBiZXR3ZWVuKDAsIDEpCgogICAgZGVmIG9uX3N0YXJ0KHNlbGYpOgogICAgICAgIHNlbGYuY2xpZW50LmhlYWRlcnNbJ1VzZXItQWdlbnQnXSA9ICJNb3ppbGxhLzUuMCIKCiAgICBAdGFzawogICAgZGVmIGluZGV4X3BhZ2Uoc2VsZik6CiAgICAgICAgc2VsZi5jbGllbnQuZ2V0KCIvIik=', parameters('locustfile'))]",
         "storageAccountName": "[variables('prefix')]",
         "containerProvisionerName": "[concat(variables('storageAccountName'), '-provisioner')]",
@@ -133,8 +133,8 @@
                             ],
                             "resources": {
                                 "requests": {
-                                    "cpu": 4,
-                                    "memoryInGB": 4
+                                    "cpu": 1,
+                                    "memoryInGB": 1
                                 }
                             },
                             "ports": [
@@ -209,8 +209,8 @@
                             ],
                             "resources": {
                                 "requests": {
-                                    "cpu": 4,
-                                    "memoryInGB": 3
+                                    "cpu": 1,
+                                    "memoryInGB": 1
                                 }
                             },
                             "volumeMounts": [
