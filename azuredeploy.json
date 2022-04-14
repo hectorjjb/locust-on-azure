@@ -47,17 +47,17 @@
         },
         "workerCPUCores": {
             "type": "string",
+            "defaultValue": "1.5",
             "metadata": {
                 "description": "The number of CPU cores to allocate to the container."
-            },
-            "defaultValue": "1.0"
+            }
         },
         "workerMemoryInGB": {
             "type": "string",
             "metadata": {
                 "description": "The amount of memory to allocate to the container in gigabytes."
             },
-            "defaultValue": "1.5"
+            "defaultValue": "0.5"
         },
         "locustfile": {
             "type": "string",
