@@ -12,9 +12,23 @@
         "instances": {
             "type": "int",
             "metadata": {
-                "description": "Number of slaves"
+                "description": "Number of Workers"
             },
             "defaultValue": 3
+        },
+        "workerCPUCores": {
+            "type": "string",
+            "metadata": {
+                "description": "The number of CPU cores to allocate to the container."
+            },
+            "defaultValue": "1.0"
+        },
+        "workerMemoryInGB": {
+            "type": "string",
+            "metadata": {
+                "description": "The amount of memory to allocate to the container in gigabytes."
+            },
+            "defaultValue": "1.5"
         },
         "locustfile": {
             "type": "string",
@@ -37,9 +51,9 @@
         "containerMasterGroup": "[concat(variables('prefix'),'-master')]",
         "containerMasterName": "master",
         "containerMasterImage": "[variables('locustImage')]",
-        "containerSlaveGroup": "[concat(variables('prefix'),'-slave')]",
-        "containerSlaveName": "slave",
-        "containerSlaveImage": "[variables('locustImage')]",
+        "containerWorkerGroup": "[concat(variables('prefix'),'-worker')]",
+        "containerWorkerName": "worker",
+        "containerWorkerImage": "[variables('locustImage')]",
         "containerMasterAddress": "[concat(variables('containerDns'), '.', variables('location'), '.azurecontainer.io')]",
         "containerMasterUrl": "[concat('http://', variables('containerMasterAddress'), ':8089')]",
         "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
@@ -182,7 +196,7 @@
             }
         },
         {
-            "name": "[concat(variables('containerSlaveGroup'), '-', copyIndex())]",
+            "name": "[concat(variables('containerWorkerGroup'), '-', copyIndex())]",
             "type": "Microsoft.ContainerInstance/containerGroups",
             "apiVersion": "2019-12-01",
             "location": "[variables('location')]",
@@ -190,15 +204,15 @@
                 "[resourceId('Microsoft.ContainerInstance/containerGroups/', variables('containerProvisionerName'))]"
             ],
             "copy": {
-                "name": "slavecopy",
+                "name": "workercopy",
                 "count": "[parameters('instances')]"
             },
             "properties": {
                 "containers": [
                     {
-                        "name": "[variables('containerSlaveName')]",
+                        "name": "[variables('containerWorkerName')]",
                         "properties": {
-                            "image": "[variables('containerSlaveImage')]",
+                            "image": "[variables('containerWorkerImage')]",
                             "command": [
                                 "locust",
                                 "-f",
@@ -209,8 +223,8 @@
                             ],
                             "resources": {
                                 "requests": {
-                                    "cpu": 1,
-                                    "memoryInGB": 1
+                                    "cpu": "[parameters('workerCPUCores')]",
+                                    "memoryInGB":"[parameters('workerMemoryInGB')]"
                                 }
                             },
                             "volumeMounts": [
