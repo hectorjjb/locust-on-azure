@@ -234,7 +234,7 @@
             ],
             "copy": {
                 "name": "workercopy",
-                "count": "[parameters('instances')]"
+                "count": "[parameters('workerInstances')]"
             },
             "properties": {
                 "containers": [
