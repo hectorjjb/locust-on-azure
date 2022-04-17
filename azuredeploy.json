@@ -4,7 +4,7 @@
     "parameters": {
         "workerCPUCores": {
             "type": "string",
-            "defaultValue": "1.5",
+            "defaultValue": "1.0",
             "metadata": {
                 "description": "The number of CPU cores to allocate to the container."
             }
@@ -63,7 +63,7 @@
         },
         "regionBLocation": {
             "type": "string",
-            "defaultValue": "[westus]",
+            "defaultValue": "westus",
             "allowedValues": [
                 "australiaeast",
                 "australiasoutheast",
@@ -151,6 +151,51 @@
             "minValue": 0,
             "maxValue": 100
         },
+        "regionDLocation": {
+            "type": "string",
+            "defaultValue": "westus",
+            "allowedValues": [
+                "australiaeast",
+                "australiasoutheast",
+                "brazilsouth",
+                "canadacentral",
+                "canadaeast",
+                "centralindia",
+                "centralus",
+                "eastasia",
+                "eastus",
+                "francecentral",
+                "germanywestcentral",
+                "japaneast",
+                "japanwest",
+                "koreacentral",
+                "northcentral US",
+                "northeurope",
+                "norwayeast",
+                "southcentralus",
+                "southeastasia",
+                "southindia",
+                "switzerlandnorth",
+                "uksouth",
+                "ukwest",
+                "uaenorth",
+                "westcentralus",
+                "westeurope",
+                "westus"
+            ],
+            "metadata": {
+                "description": "Location where resources will be provisioned. By default, the template deploys the resources to the same location as the resource group. If specified, must be a valid Azure location e.g. 'australiasoutheast'"
+            }
+        },
+        "regionDWorkerInstances": {
+            "type": "int",
+            "metadata": {
+                "description": "Number of Workers"
+            },
+            "defaultValue": 0,
+            "minValue": 0,
+            "maxValue": 100
+        },
         "locustfile": {
             "type": "string",
             "metadata": {
@@ -164,6 +209,7 @@
         "regionALocation": "[parameters('regionALocation')]",
         "regionBLocation": "[parameters('regionBLocation')]",
         "regionCLocation": "[parameters('regionCLocation')]",
+        "regionDLocation": "[parameters('regionDLocation')]",
         "prefix": "[uniqueString(resourceGroup().id)]",
         "azureCliImage": "mcr.microsoft.com/azure-cli:latest",
         "locustfile": "[if(empty(parameters('locustfile')), 'ZnJvbSBsb2N1c3QgaW1wb3J0IEh0dHBVc2VyLCB0YXNrLCBiZXR3ZWVuCgpjbGFzcyBRdWlja3N0YXJ0VXNlcihIdHRwVXNlcik6CiAgICB3YWl0X3RpbWUgPSBiZXR3ZWVuKDAsIDEpCgogICAgZGVmIG9uX3N0YXJ0KHNlbGYpOgogICAgICAgIHNlbGYuY2xpZW50LmhlYWRlcnNbJ1VzZXItQWdlbnQnXSA9ICJNb3ppbGxhLzUuMCIKCiAgICBAdGFzawogICAgZGVmIGluZGV4X3BhZ2Uoc2VsZik6CiAgICAgICAgc2VsZi5jbGllbnQuZ2V0KCIvIik=', parameters('locustfile'))]",
@@ -436,6 +482,60 @@
             "copy": {
                 "name": "workercopy",
                 "count": "[parameters('regionCWorkerInstances')]"
+            },
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[variables('containerWorkerName')]",
+                        "properties": {
+                            "image": "[variables('containerWorkerImage')]",
+                            "command": [
+                                "locust",
+                                "-f",
+                                "/mnt/locust/locustfile.py",
+                                "--worker",
+                                "--master-host",
+                                "[variables('containerMasterAddress')]"
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "cpu": "[parameters('workerCPUCores')]",
+                                    "memoryInGB": "[parameters('workerMemoryInGB')]"
+                                }
+                            },
+                            "volumeMounts": [
+                                {
+                                    "name": "filesharevolume",
+                                    "mountPath": "/mnt/locust"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "osType": "Linux",
+                "volumes": [
+                    {
+                        "name": "filesharevolume",
+                        "azureFile": {
+                            "shareName": "scripts",
+                            "storageAccountName": "[variables('storageAccountName')]",
+                            "storageAccountKey": "[listKeys(variables('storageAccountId'),'2017-10-01').keys[0].value]"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "[concat(variables('prefix'), '-', variables('regionDLocation'), '-worker-', copyIndex())]",
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2019-12-01",
+            "location": "[variables('regionDLocation')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ContainerInstance/containerGroups/', variables('containerProvisionerName'))]"
+            ],
+            "copy": {
+                "name": "workercopy",
+                "count": "[parameters('regionDWorkerInstances')]"
             },
             "properties": {
                 "containers": [
