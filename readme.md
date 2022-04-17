@@ -15,7 +15,7 @@ Make sure you are logged in to [Azure Portal](https://portal.azure.com).
 
 Click magick button (you can open it in new tab):
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhectorjjb%2Flocust-on-azure%2Fdevelop%2Fazuredeploy.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhectorjjb%2Flocust-on-azure%2Fmain%2Fazuredeploy.json)
 
 Then fill form with given values.
 
