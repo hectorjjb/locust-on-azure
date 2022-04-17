@@ -103,7 +103,7 @@
                 "description": "Number of Workers"
             },
             "defaultValue": 0,
-            "minValue": 1,
+            "minValue": 0,
             "maxValue": 100
         },
         "regionCLocation": {
@@ -148,7 +148,7 @@
                 "description": "Number of Workers"
             },
             "defaultValue": 0,
-            "minValue": 1,
+            "minValue": 0,
             "maxValue": 100
         },
         "locustfile": {
