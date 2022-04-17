@@ -161,7 +161,9 @@
     },
     "variables": {
         "locustImage": "locustio/locust:latest",
-        "location": "[parameters('location')]",
+        "regionALocation": "[parameters('regionALocation')]",
+        "regionBLocation": "[parameters('regionBLocation')]",
+        "regionCLocation": "[parameters('regionCLocation')]",
         "prefix": "[uniqueString(resourceGroup().id)]",
         "azureCliImage": "mcr.microsoft.com/azure-cli:latest",
         "locustfile": "[if(empty(parameters('locustfile')), 'ZnJvbSBsb2N1c3QgaW1wb3J0IEh0dHBVc2VyLCB0YXNrLCBiZXR3ZWVuCgpjbGFzcyBRdWlja3N0YXJ0VXNlcihIdHRwVXNlcik6CiAgICB3YWl0X3RpbWUgPSBiZXR3ZWVuKDAsIDEpCgogICAgZGVmIG9uX3N0YXJ0KHNlbGYpOgogICAgICAgIHNlbGYuY2xpZW50LmhlYWRlcnNbJ1VzZXItQWdlbnQnXSA9ICJNb3ppbGxhLzUuMCIKCiAgICBAdGFzawogICAgZGVmIGluZGV4X3BhZ2Uoc2VsZik6CiAgICAgICAgc2VsZi5jbGllbnQuZ2V0KCIvIik=', parameters('locustfile'))]",
