@@ -1,0 +1,693 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workerCPUCores": {
+            "type": "string",
+            "defaultValue": "1.0",
+            "metadata": {
+                "description": "The number of CPU cores to allocate to the container."
+            }
+        },
+        "workerMemoryInGB": {
+            "type": "string",
+            "metadata": {
+                "description": "The amount of memory to allocate to the container in gigabytes."
+            },
+            "defaultValue": "0.5"
+        },
+        "regionALocation": {
+            "type": "string",
+            "defaultValue": "westus",
+            "allowedValues": [
+                "australiaeast",
+                "australiasoutheast",
+                "brazilsouth",
+                "canadacentral",
+                "canadaeast",
+                "centralindia",
+                "centralus",
+                "eastasia",
+                "eastus",
+                "francecentral",
+                "germanywestcentral",
+                "japaneast",
+                "japanwest",
+                "koreacentral",
+                "northcentral US",
+                "northeurope",
+                "norwayeast",
+                "southcentralus",
+                "southeastasia",
+                "southindia",
+                "switzerlandnorth",
+                "uksouth",
+                "ukwest",
+                "uaenorth",
+                "westcentralus",
+                "westeurope",
+                "westus"
+            ],
+            "metadata": {
+                "description": "Location where resources will be provisioned. By default, the template deploys the resources to the same location as the resource group. If specified, must be a valid Azure location e.g. 'australiasoutheast'"
+            }
+        },
+        "regionAWorkerInstances": {
+            "type": "int",
+            "metadata": {
+                "description": "Number of Workers"
+            },
+            "defaultValue": 3,
+            "minValue": 1,
+            "maxValue": 100
+        },
+        "regionBLocation": {
+            "type": "string",
+            "defaultValue": "westus",
+            "allowedValues": [
+                "australiaeast",
+                "australiasoutheast",
+                "brazilsouth",
+                "canadacentral",
+                "canadaeast",
+                "centralindia",
+                "centralus",
+                "eastasia",
+                "eastus",
+                "francecentral",
+                "germanywestcentral",
+                "japaneast",
+                "japanwest",
+                "koreacentral",
+                "northcentral US",
+                "northeurope",
+                "norwayeast",
+                "southcentralus",
+                "southeastasia",
+                "southindia",
+                "switzerlandnorth",
+                "uksouth",
+                "ukwest",
+                "uaenorth",
+                "westcentralus",
+                "westeurope",
+                "westus"
+            ],
+            "metadata": {
+                "description": "Location where resources will be provisioned. By default, the template deploys the resources to the same location as the resource group. If specified, must be a valid Azure location e.g. 'australiasoutheast'"
+            }
+        },
+        "regionBWorkerInstances": {
+            "type": "int",
+            "metadata": {
+                "description": "Number of Workers"
+            },
+            "defaultValue": 0,
+            "minValue": 0,
+            "maxValue": 100
+        },
+        "regionCLocation": {
+            "type": "string",
+            "defaultValue": "westus",
+            "allowedValues": [
+                "australiaeast",
+                "australiasoutheast",
+                "brazilsouth",
+                "canadacentral",
+                "canadaeast",
+                "centralindia",
+                "centralus",
+                "eastasia",
+                "eastus",
+                "francecentral",
+                "germanywestcentral",
+                "japaneast",
+                "japanwest",
+                "koreacentral",
+                "northcentral US",
+                "northeurope",
+                "norwayeast",
+                "southcentralus",
+                "southeastasia",
+                "southindia",
+                "switzerlandnorth",
+                "uksouth",
+                "ukwest",
+                "uaenorth",
+                "westcentralus",
+                "westeurope",
+                "westus"
+            ],
+            "metadata": {
+                "description": "Location where resources will be provisioned. By default, the template deploys the resources to the same location as the resource group. If specified, must be a valid Azure location e.g. 'australiasoutheast'"
+            }
+        },
+        "regionCWorkerInstances": {
+            "type": "int",
+            "metadata": {
+                "description": "Number of Workers"
+            },
+            "defaultValue": 0,
+            "minValue": 0,
+            "maxValue": 100
+        },
+        "regionDLocation": {
+            "type": "string",
+            "defaultValue": "westus",
+            "allowedValues": [
+                "australiaeast",
+                "australiasoutheast",
+                "brazilsouth",
+                "canadacentral",
+                "canadaeast",
+                "centralindia",
+                "centralus",
+                "eastasia",
+                "eastus",
+                "francecentral",
+                "germanywestcentral",
+                "japaneast",
+                "japanwest",
+                "koreacentral",
+                "northcentral US",
+                "northeurope",
+                "norwayeast",
+                "southcentralus",
+                "southeastasia",
+                "southindia",
+                "switzerlandnorth",
+                "uksouth",
+                "ukwest",
+                "uaenorth",
+                "westcentralus",
+                "westeurope",
+                "westus"
+            ],
+            "metadata": {
+                "description": "Location where resources will be provisioned. By default, the template deploys the resources to the same location as the resource group. If specified, must be a valid Azure location e.g. 'australiasoutheast'"
+            }
+        },
+        "regionDWorkerInstances": {
+            "type": "int",
+            "metadata": {
+                "description": "Number of Workers"
+            },
+            "defaultValue": 0,
+            "minValue": 0,
+            "maxValue": 100
+        },
+        "regionELocation": {
+            "type": "string",
+            "defaultValue": "westus",
+            "allowedValues": [
+                "australiaeast",
+                "australiasoutheast",
+                "brazilsouth",
+                "canadacentral",
+                "canadaeast",
+                "centralindia",
+                "centralus",
+                "eastasia",
+                "eastus",
+                "francecentral",
+                "germanywestcentral",
+                "japaneast",
+                "japanwest",
+                "koreacentral",
+                "northcentral US",
+                "northeurope",
+                "norwayeast",
+                "southcentralus",
+                "southeastasia",
+                "southindia",
+                "switzerlandnorth",
+                "uksouth",
+                "ukwest",
+                "uaenorth",
+                "westcentralus",
+                "westeurope",
+                "westus"
+            ],
+            "metadata": {
+                "description": "Location where resources will be provisioned. By default, the template deploys the resources to the same location as the resource group. If specified, must be a valid Azure location e.g. 'australiasoutheast'"
+            }
+        },
+        "regionEWorkerInstances": {
+            "type": "int",
+            "metadata": {
+                "description": "Number of Workers"
+            },
+            "defaultValue": 0,
+            "minValue": 0,
+            "maxValue": 100
+        },
+        "locustfile": {
+            "type": "string",
+            "metadata": {
+                "description": "Locustfile base64 encoded contents. You can edit locustfile later."
+            },
+            "defaultValue": ""
+        }
+    },
+    "variables": {
+        "locustImage": "locustio/locust:latest",
+        "regionALocation": "[parameters('regionALocation')]",
+        "regionBLocation": "[parameters('regionBLocation')]",
+        "regionCLocation": "[parameters('regionCLocation')]",
+        "regionDLocation": "[parameters('regionDLocation')]",
+        "regionELocation": "[parameters('regionELocation')]",
+        "prefix": "[uniqueString(resourceGroup().id)]",
+        "azureCliImage": "mcr.microsoft.com/azure-cli:latest",
+        "locustfile": "[if(empty(parameters('locustfile')), 'ZnJvbSBsb2N1c3QgaW1wb3J0IEh0dHBVc2VyLCB0YXNrLCBiZXR3ZWVuCgpjbGFzcyBRdWlja3N0YXJ0VXNlcihIdHRwVXNlcik6CiAgICB3YWl0X3RpbWUgPSBiZXR3ZWVuKDAsIDEpCgogICAgZGVmIG9uX3N0YXJ0KHNlbGYpOgogICAgICAgIHNlbGYuY2xpZW50LmhlYWRlcnNbJ1VzZXItQWdlbnQnXSA9ICJNb3ppbGxhLzUuMCIKCiAgICBAdGFzawogICAgZGVmIGluZGV4X3BhZ2Uoc2VsZik6CiAgICAgICAgc2VsZi5jbGllbnQuZ2V0KCIvIik=', parameters('locustfile'))]",
+        "storageAccountName": "[variables('prefix')]",
+        "containerProvisionerName": "[concat(variables('storageAccountName'), '-provisioner')]",
+        "containerName": "createshare",
+        "containerDns": "[concat(variables('prefix'),'-master')]",
+        "containerMasterGroup": "[concat(variables('prefix'),'-master')]",
+        "containerMasterName": "master",
+        "containerMasterImage": "[variables('locustImage')]",
+        "containerWorkerName": "worker",
+        "containerWorkerImage": "[variables('locustImage')]",
+        "containerMasterAddress": "[concat(variables('containerDns'), '.', variables('regionALocation'), '.azurecontainer.io')]",
+        "containerMasterUrl": "[concat('http://', variables('containerMasterAddress'), ':8089')]",
+        "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('storageAccountName')]",
+            "apiVersion": "2019-06-01",
+            "location": "[variables('regionALocation')]",
+            "sku": {
+                "name": "Standard_LRS"
+            },
+            "kind": "Storage",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(variables('storageAccountName'), '/default/scripts')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "properties": {
+                "shareQuota": 1
+            }
+        },
+        {
+            "name": "[variables('containerProvisionerName')]",
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2019-12-01",
+            "location": "[variables('regionALocation')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/fileServices/shares', variables('storageAccountName'), 'default', 'scripts')]"
+            ],
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[variables('containerName')]",
+                        "properties": {
+                            "image": "[variables('azureCliImage')]",
+                            "command": [
+                                "bash",
+                                "-c",
+                                "[concat('echo ', variables('locustfile'), ' | ', 'base64 -d > locustfile.py', ';', 'az storage file upload -s scripts --source ./locustfile.py')]"
+                            ],
+                            "environmentVariables": [
+                                {
+                                    "name": "AZURE_STORAGE_KEY",
+                                    "value": "[listKeys(variables('storageAccountName'),'2017-10-01').keys[0].value]"
+                                },
+                                {
+                                    "name": "AZURE_STORAGE_ACCOUNT",
+                                    "value": "[variables('storageAccountName')]"
+                                }
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "cpu": 1,
+                                    "memoryInGB": 1
+                                }
+                            }
+                        }
+                    }
+                ],
+                "restartPolicy": "OnFailure",
+                "osType": "Linux"
+            }
+        },
+        {
+            "name": "[variables('containerMasterGroup')]",
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2019-12-01",
+            "location": "[variables('regionALocation')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ContainerInstance/containerGroups/', variables('containerProvisionerName'))]"
+            ],
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[variables('containerMasterName')]",
+                        "properties": {
+                            "image": "[variables('containerMasterImage')]",
+                            "command": [
+                                "locust",
+                                "-f",
+                                "/mnt/locust/locustfile.py",
+                                "--master",
+                                "--host",
+                                "https://"
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "cpu": 1,
+                                    "memoryInGB": 1
+                                }
+                            },
+                            "ports": [
+                                {
+                                    "port": 8089
+                                },
+                                {
+                                    "port": 5557
+                                }
+                            ],
+                            "volumeMounts": [
+                                {
+                                    "name": "filesharevolume",
+                                    "mountPath": "/mnt/locust"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "osType": "Linux",
+                "ipAddress": {
+                    "type": "Public",
+                    "ports": [
+                        {
+                            "protocol": "TCP",
+                            "port": 8089
+                        },
+                        {
+                            "protocol": "TCP",
+                            "port": 5557
+                        }
+                    ],
+                    "dnsNameLabel": "[variables('containerDns')]"
+                },
+                "volumes": [
+                    {
+                        "name": "filesharevolume",
+                        "azureFile": {
+                            "shareName": "scripts",
+                            "storageAccountName": "[variables('storageAccountName')]",
+                            "storageAccountKey": "[listKeys(variables('storageAccountId'),'2017-10-01').keys[0].value]"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "[concat(variables('prefix'), '-', variables('regionALocation'), '-worker-', copyIndex())]",
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2019-12-01",
+            "location": "[variables('regionALocation')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ContainerInstance/containerGroups/', variables('containerProvisionerName'))]"
+            ],
+            "copy": {
+                "name": "workercopy",
+                "count": "[parameters('regionAWorkerInstances')]"
+            },
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[variables('containerWorkerName')]",
+                        "properties": {
+                            "image": "[variables('containerWorkerImage')]",
+                            "command": [
+                                "locust",
+                                "-f",
+                                "/mnt/locust/locustfile.py",
+                                "--worker",
+                                "--master-host",
+                                "[variables('containerMasterAddress')]"
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "cpu": "[parameters('workerCPUCores')]",
+                                    "memoryInGB": "[parameters('workerMemoryInGB')]"
+                                }
+                            },
+                            "volumeMounts": [
+                                {
+                                    "name": "filesharevolume",
+                                    "mountPath": "/mnt/locust"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "osType": "Linux",
+                "volumes": [
+                    {
+                        "name": "filesharevolume",
+                        "azureFile": {
+                            "shareName": "scripts",
+                            "storageAccountName": "[variables('storageAccountName')]",
+                            "storageAccountKey": "[listKeys(variables('storageAccountId'),'2017-10-01').keys[0].value]"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "[concat(variables('prefix'), '-', variables('regionBLocation'), '-worker-', copyIndex())]",
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2019-12-01",
+            "location": "[variables('regionBLocation')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ContainerInstance/containerGroups/', variables('containerProvisionerName'))]"
+            ],
+            "copy": {
+                "name": "workercopy",
+                "count": "[parameters('regionBWorkerInstances')]"
+            },
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[variables('containerWorkerName')]",
+                        "properties": {
+                            "image": "[variables('containerWorkerImage')]",
+                            "command": [
+                                "locust",
+                                "-f",
+                                "/mnt/locust/locustfile.py",
+                                "--worker",
+                                "--master-host",
+                                "[variables('containerMasterAddress')]"
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "cpu": "[parameters('workerCPUCores')]",
+                                    "memoryInGB": "[parameters('workerMemoryInGB')]"
+                                }
+                            },
+                            "volumeMounts": [
+                                {
+                                    "name": "filesharevolume",
+                                    "mountPath": "/mnt/locust"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "osType": "Linux",
+                "volumes": [
+                    {
+                        "name": "filesharevolume",
+                        "azureFile": {
+                            "shareName": "scripts",
+                            "storageAccountName": "[variables('storageAccountName')]",
+                            "storageAccountKey": "[listKeys(variables('storageAccountId'),'2017-10-01').keys[0].value]"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "[concat(variables('prefix'), '-', variables('regionCLocation'), '-worker-', copyIndex())]",
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2019-12-01",
+            "location": "[variables('regionCLocation')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ContainerInstance/containerGroups/', variables('containerProvisionerName'))]"
+            ],
+            "copy": {
+                "name": "workercopy",
+                "count": "[parameters('regionCWorkerInstances')]"
+            },
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[variables('containerWorkerName')]",
+                        "properties": {
+                            "image": "[variables('containerWorkerImage')]",
+                            "command": [
+                                "locust",
+                                "-f",
+                                "/mnt/locust/locustfile.py",
+                                "--worker",
+                                "--master-host",
+                                "[variables('containerMasterAddress')]"
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "cpu": "[parameters('workerCPUCores')]",
+                                    "memoryInGB": "[parameters('workerMemoryInGB')]"
+                                }
+                            },
+                            "volumeMounts": [
+                                {
+                                    "name": "filesharevolume",
+                                    "mountPath": "/mnt/locust"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "osType": "Linux",
+                "volumes": [
+                    {
+                        "name": "filesharevolume",
+                        "azureFile": {
+                            "shareName": "scripts",
+                            "storageAccountName": "[variables('storageAccountName')]",
+                            "storageAccountKey": "[listKeys(variables('storageAccountId'),'2017-10-01').keys[0].value]"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "[concat(variables('prefix'), '-', variables('regionDLocation'), '-worker-', copyIndex())]",
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2019-12-01",
+            "location": "[variables('regionDLocation')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ContainerInstance/containerGroups/', variables('containerProvisionerName'))]"
+            ],
+            "copy": {
+                "name": "workercopy",
+                "count": "[parameters('regionDWorkerInstances')]"
+            },
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[variables('containerWorkerName')]",
+                        "properties": {
+                            "image": "[variables('containerWorkerImage')]",
+                            "command": [
+                                "locust",
+                                "-f",
+                                "/mnt/locust/locustfile.py",
+                                "--worker",
+                                "--master-host",
+                                "[variables('containerMasterAddress')]"
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "cpu": "[parameters('workerCPUCores')]",
+                                    "memoryInGB": "[parameters('workerMemoryInGB')]"
+                                }
+                            },
+                            "volumeMounts": [
+                                {
+                                    "name": "filesharevolume",
+                                    "mountPath": "/mnt/locust"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "osType": "Linux",
+                "volumes": [
+                    {
+                        "name": "filesharevolume",
+                        "azureFile": {
+                            "shareName": "scripts",
+                            "storageAccountName": "[variables('storageAccountName')]",
+                            "storageAccountKey": "[listKeys(variables('storageAccountId'),'2017-10-01').keys[0].value]"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "[concat(variables('prefix'), '-', variables('regionELocation'), '-worker-', copyIndex())]",
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2019-12-01",
+            "location": "[variables('regionELocation')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ContainerInstance/containerGroups/', variables('containerProvisionerName'))]"
+            ],
+            "copy": {
+                "name": "workercopy",
+                "count": "[parameters('regionEWorkerInstances')]"
+            },
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[variables('containerWorkerName')]",
+                        "properties": {
+                            "image": "[variables('containerWorkerImage')]",
+                            "command": [
+                                "locust",
+                                "-f",
+                                "/mnt/locust/locustfile.py",
+                                "--worker",
+                                "--master-host",
+                                "[variables('containerMasterAddress')]"
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "cpu": "[parameters('workerCPUCores')]",
+                                    "memoryInGB": "[parameters('workerMemoryInGB')]"
+                                }
+                            },
+                            "volumeMounts": [
+                                {
+                                    "name": "filesharevolume",
+                                    "mountPath": "/mnt/locust"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "osType": "Linux",
+                "volumes": [
+                    {
+                        "name": "filesharevolume",
+                        "azureFile": {
+                            "shareName": "scripts",
+                            "storageAccountName": "[variables('storageAccountName')]",
+                            "storageAccountKey": "[listKeys(variables('storageAccountId'),'2017-10-01').keys[0].value]"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs": {
+        "prefix": {
+            "type": "string",
+            "value": "[variables('prefix')]"
+        },
+        "url": {
+            "type": "string",
+            "value": "[variables('containerMasterUrl')]"
+        }
+    }
+}
