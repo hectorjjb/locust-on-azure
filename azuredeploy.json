@@ -18,7 +18,7 @@
         },
         "regionALocation": {
             "type": "string",
-            "defaultValue": "[resourceGroup().location]",
+            "defaultValue": "westus",
             "allowedValues": [
                 "australiaeast",
                 "australiasoutheast",
@@ -63,7 +63,7 @@
         },
         "regionBLocation": {
             "type": "string",
-            "defaultValue": "[resourceGroup().location]",
+            "defaultValue": "[westus]",
             "allowedValues": [
                 "australiaeast",
                 "australiasoutheast",
@@ -108,7 +108,7 @@
         },
         "regionCLocation": {
             "type": "string",
-            "defaultValue": "[resourceGroup().location]",
+            "defaultValue": "westus",
             "allowedValues": [
                 "australiaeast",
                 "australiasoutheast",
