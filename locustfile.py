@@ -1,7 +1,7 @@
-from locust import HttpUser, task, between
+from locust import FastHttpUser, task, constant
 
-class QuickstartUser(HttpUser):
-    wait_time = between(0, 1)
+class QuickstartUser(FastHttpUser):
+    wait_time = constant(0)
 
     def on_start(self):
         self.client.headers['User-Agent'] = "Mozilla/5.0"
